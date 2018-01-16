@@ -1,24 +1,109 @@
 body {
   background-color: #fbc547;
-  color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir",
-    "Segoe UI", "Lucida Grande", "Helvetica Neue", "Helvetica", "Fira Sans",
-    "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu",
-    "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif;
-  padding: 18vh 1rem;
-  text-align: center;
+  color: white;
+  font-family: "Helvetica", sans-serif;
+}
+label, input{
+  display: block;
+  font-size: 22px;
+  margin: 6px;
+}
+.title-text{
+  padding: 30px;
+}
+hr{
+  width: 50%;
+  margin-top: -16px !important;
 }
 
-a {
-  color: rgba(#000, 0.7);
+.display-input{
+  width: 45%;
+  opacity: 0.8;
+  font-size: 19px;
+}
+.hidden{
+  visibility: hidden;
+}
+.form{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  .input-group{
+    padding-top: 10px;
+    .form-control{
+      padding: 10px;
+      height: 6px;
+      border-radius: 2px;
+    }
+  }
+  .postcode{
+    padding: 10px;
+  }
+  #getaddress_input{
+    padding: 10px;
+    height: 53px;
+    border-radius: 2px;
+    border: 1px solid white;
+    opacity: 0.8;
+    text-align: center;
+    margin-left: 29px;
+    color: #5bc0de;
+  }
+  #getaddress_button{
+    height: 43px;
+    border-radius: 8px;
+    margin-left: 4px;
+    background: none;
+    border: 3px solid white;
+    color: white;
+    padding: 8px;
+    margin: 6px;
+    margin-right: 193px;
+  }
+  #getaddress_dropdown{
+    height: 50px;
+    margin-top: 10px;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    opacity: 0.8;
+    font-size: 12px;
+    width: 92%;
+    margin-left: -199px;
+  }
+  .form-group{
+    padding: 10px;
+  }
+  .input-group{
+    height: 52px;
+    border-radius: 3px;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    opacity: 0.8;
+    padding: 2px;
+    text-align: center;
+  }
+  #first{
+    float: left;
+  }
+  #second{
+    float: left;
+  }
 
-  &:focus,
-  &:hover {
-    color: rgba(#000, 0.6);
+
+  .btn{
+    height: 46px;
+    width: 89px;
+    border-radius: 8px;
+    margin-left: 4px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    border-radius: 13px;
+    font-size: 21px;
+
   }
 }
 
-.middleman-logo {
-  margin-bottom: 1rem;
-  width: 10rem;
-}

@@ -1,23 +1,129 @@
 ---
-title: Welcome to Middleman
+title: Octopus Xercise
 ---
+<div class="container">
+  <div class="title-text">
+    <h1 class="text-center">Home address</h1>
+    <p class="text-center">Please enter the director's home address for the last 3 years.</p>
+  </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" class="middleman-logo" aria-labelledby="middleman-logo__title" role="img">
-  <title id="middleman-logo__title">Middleman</title>
-  <path class="middleman-logo__top-left-bar" fill-opacity=".45" d="M0 40L200 0v30L0 60z"/>
-  <path class="middleman-logo__top-right-bar" fill="#fff" d="M200 0l200 40v20L200 30z"/>
-  <path class="middleman-logo__left-m" fill-opacity=".45" d="M0 78v184l45 5V152l45 83 47-83v129l53 7V52l-57 8-43 83-43-70z"/>
-  <path class="middleman-logo__right-m" fill="#fff" d="M400 78v184l-45 5V152l-45 83-47-83v129l-53 7V52l57 8 43 83 43-70z"/>
-  <path class="middleman-logo__bottom-left-bar" fill-opacity=".45" d="M0 300l200 40v-30L0 280z"/>
-  <path class="middleman-logo__bottom-right-bar" fill="#fff" d="M200 340l200-40v-20l-200 30z"/>
-</svg>
+  <hr>
 
-<h1>
-  Middleman is Running
-</h1>
+  <p><span id="display"></span></p>
 
-<%= link_to(
-  "Read Documentation",
-  "https://middlemanapp.com/basics/templating_language/",
-  target: "_blank"
-) %>
+  <div class="select-time">
+    <div class="row">
+      <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+        <p id="time-q">How long did you stay at your <strong>current address</strong>?</p>
+        <form class="form-inline text-center">
+          <select id="selectyr" class="selectpicker 1year"></select>
+          <select id="selectmth" class="selectpicker 1month"></select>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="form text-center">
+    <div class="row">
+      <div class='col-xs-12 col-sm-4 col-sm--offset-4 col-md-6 col-md-offset-4'>
+        <div id="postcode_lookup" class="postcode"></div>
+      </div>
+    </div>
+
+    <form id="address" class="hidden">
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <div class="form-group" id="first">
+            <label for="firstAddressLine">First Address Line</label>
+            <input class="input-group" id="line1" type="text" placeholder="Type Address Line 1">
+          </div>
+          <div class="form-group" id="third">
+            <label for="secondAddressLine">Second Address Line</label>
+            <input class="input-group" id="line2" type="text" placeholder="Type Address Line 2">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <div class="form-group" id="second">
+            <label for="town">Town</label>
+            <input class="input-group" id="town" type="text" placeholder="Type Town">
+          </div>
+          <div class="form-group" id="fourth">
+            <label for="county">County</label>
+            <input class="input-group" id="county" type="text" placeholder="Type County">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <button type="button"  onclick="showInput();" id="submit-btn" class="btn">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+  $(function(){
+    var $select = $(".1year");
+    for (i=1;i<=10;i++){
+      $select.append($('<option></option>').val(i).html(i))
+    }
+    var $select = $(".1month");
+    for (i=1;i<=11;i++){
+      $select.append($('<option></option>').val(i).html(i))
+    }
+    const selectyr = document.getElementById('selectyr');
+    const selectmth = document.getElementById('selectmth');
+
+    $('.selectpicker').selectpicker({
+      style: 'btn-info',
+      size: 4
+    });
+  });
+
+
+
+  $('#postcode_lookup').getAddress({
+    api_key: '50UHTvRCxEubSp-wTCMcCQ11849',
+    <!--  Or use your own endpoint - api_endpoint:https://your-web-site.com/getAddress, -->
+    output_fields:{
+      line_1: '#line1',
+      line_2: '#line2',
+      post_town: '#town',
+      county: '#county',
+    },
+    <!--  Optionally register callbacks at specific stages -->
+  onLookupSuccess: function(data){/* Your custom code */},
+onLookupError: function(){/* Your custom code */},
+onAddressSelected: function(elem,index){/* Your custom code */}
+});
+
+
+  const btn = document.getElementById('getaddress_button');
+  const addressForm = document.getElementById('address');
+
+  btn.addEventListener("click", (event) => {
+    addressForm.classList.remove("hidden");
+  });
+
+  function showInput() {
+    const selectyr = document.getElementById('selectyr').value;
+    const selectmth = document.getElementById('selectmth').value;
+    const line1 = document.getElementById('line1').value;
+    const line2 = document.getElementById('line2').value;
+    const town = document.getElementById('town').value;
+    const county = document.getElementById('county').value;
+    document.getElementById('display').classList.add("display-input");
+    document.getElementById('display').innerHTML =
+    line1 + ", " + line2 + "<br>" + town + ", " + county + "<br>" + "Time at address: " + selectyr + " years and " + selectmth + "months" ;
+  }
+
+</script>
