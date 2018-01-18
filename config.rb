@@ -7,6 +7,9 @@ end
 
 # Layouts
 # https://middlemanapp.com/basics/layouts/
+set :css_dir,    'assets/stylesheets'
+set :images_dir, 'assets/images'
+set :js_dir,     'assets/javascripts'
 
 # Per-page layout changes
 page '/*.xml', layout: false
@@ -15,6 +18,11 @@ page '/*.txt', layout: false
 
 # With alternative layout
 # page '/path/to/file.html', layout: 'other_layout'
+activate :deploy do |deploy|
+  deploy.deploy_method = :git
+  deploy.branch        = 'gh-pages'
+  deploy.build_before  = true # always use --no-clean options
+end
 
 # Proxy pages
 # https://middlemanapp.com/advanced/dynamic-pages/
