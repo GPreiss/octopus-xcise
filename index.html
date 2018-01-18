@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Use the title from a page's frontmatter if it has one -->
+  <title>Octopus Xercise</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+  <script src="https://getaddress.io/js/jquery.getAddress-2.0.7.min.js"></script>
+
+  <link href="/stylesheets/site.css" rel="stylesheet" />
+  <script src="/javascripts/site.js"></script>
+</head>
+<body>
+  <div class="container">
+  <div class="title-text">
+    <h1 class="text-center">Home address</h1>
+    <p class="text-center">Please enter the director's home address for the last 3 years.</p>
+  </div>
+
+  <hr>
+
+  <p><span id="display"></span></p>
+
+  <div class="select-time">
+    <div class="row">
+      <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+        <p id="time-q">How long did you stay at your <strong>current address</strong>?</p>
+        <form class="form-inline text-center">
+          <select id="selectyr" class="selectpicker 1year"></select>
+          <select id="selectmth" class="selectpicker 1month"></select>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="form text-center">
+    <div class="row">
+      <div class='col-xs-12 col-sm-4 col-sm--offset-4 col-md-6 col-md-offset-4'>
+        <div id="postcode_lookup" class="postcode"></div>
+      </div>
+    </div>
+
+    <form id="address" class="hidden">
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <div class="form-group" id="first">
+            <label for="firstAddressLine">First Address Line</label>
+            <input class="input-group" id="line1" type="text" placeholder="Type Address Line 1">
+          </div>
+          <div class="form-group" id="third">
+            <label for="secondAddressLine">Second Address Line</label>
+            <input class="input-group" id="line2" type="text" placeholder="Type Address Line 2">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <div class="form-group" id="second">
+            <label for="town">Town</label>
+            <input class="input-group" id="town" type="text" placeholder="Type Town">
+          </div>
+          <div class="form-group" id="fourth">
+            <label for="county">County</label>
+            <input class="input-group" id="county" type="text" placeholder="Type County">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class='col-xs-12 col-sm-3 col-sm--offset-3 col-md-6 col-md-offset-3'>
+          <button type="button"  onclick="showInput();" id="submit-btn" class="btn">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+  $(function(){
+    var $select = $(".1year");
+    for (i=1;i<=10;i++){
+      $select.append($('<option></option>').val(i).html(i))
+    }
+    var $select = $(".1month");
+    for (i=1;i<=11;i++){
+      $select.append($('<option></option>').val(i).html(i))
+    }
+    const selectyr = document.getElementById('selectyr');
+    const selectmth = document.getElementById('selectmth');
+
+    $('.selectpicker').selectpicker({
+      style: 'btn-info',
+      size: 4
+    });
+  });
+
+
+
+  $('#postcode_lookup').getAddress({
+    api_key: '50UHTvRCxEubSp-wTCMcCQ11849',
+    <!--  Or use your own endpoint - api_endpoint:https://your-web-site.com/getAddress, -->
+    output_fields:{
+      line_1: '#line1',
+      line_2: '#line2',
+      post_town: '#town',
+      county: '#county',
+    },
+    <!--  Optionally register callbacks at specific stages -->
+  onLookupSuccess: function(data){/* Your custom code */},
+onLookupError: function(){/* Your custom code */},
+onAddressSelected: function(elem,index){/* Your custom code */}
+});
+
+
+  const btn = document.getElementById('getaddress_button');
+  const addressForm = document.getElementById('address');
+
+  btn.addEventListener("click", (event) => {
+    addressForm.classList.remove("hidden");
+  });
+
+  function showInput() {
+    const selectyr = document.getElementById('selectyr').value;
+    const selectmth = document.getElementById('selectmth').value;
+    const line1 = document.getElementById('line1').value;
+    const line2 = document.getElementById('line2').value;
+    const town = document.getElementById('town').value;
+    const county = document.getElementById('county').value;
+    document.getElementById('display').classList.add("display-input");
+    document.getElementById('display').innerHTML =
+    line1 + ", " + line2 + "<br>" + town + ", " + county + "<br>" + "Time at address: " + selectyr + " years and " + selectmth + "months" ;
+  }
+
+</script>
+
+</body>
+</html>
